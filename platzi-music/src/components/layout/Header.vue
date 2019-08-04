@@ -12,14 +12,19 @@
         </form>
         <ul class="right hide-on-med-and-down">
           <li>
-            <router-link :to="{name: 'search'}">Home</router-link>
+            <router-link :to="{name: 'search'}">{{ $t('search') }}</router-link>
           </li>
           <li>
-            <router-link :to="{name: 'about'}">About</router-link>
+            <router-link :to="{name: 'about'}">{{ $t('about') }}</router-link>
           </li>
           <li>
             <a href="#!" class="dropdown-trigger" data-target="dropdown">
-              Practice<i class="material-icons right">arrow_drop_down</i>
+              {{ $t('practices') }}<i class="material-icons right">arrow_drop_down</i>
+            </a>
+          </li>
+          <li>
+            <a href="#!" class="dropdown-trigger" data-target="langSelect">
+              {{ $t('lang') }}<i class="material-icons right">arrow_drop_down</i>
             </a>
           </li>
         </ul>
@@ -33,7 +38,9 @@
       <li><router-link to="/reactive">Reactive</router-link></li>
       <li><router-link to="/slots">Slots</router-link></li>
       <li><router-link to="/vuex">Vuex</router-link></li>
-
+    </ul>
+    <ul id="langSelect" class="dropdown-content">
+      <li v-for="lang in langs" :key="lang.id" @click="$i18n.locale=lang"><a href="javascript: void(0)">{{ lang | capitalize }}</a></li>
     </ul>
   </header>
 </template>
@@ -45,7 +52,11 @@ import { mapMutations } from 'vuex'
 export default {
   data() {
     return {
-      searchQuery: ''
+      searchQuery: '',
+      langs: [
+        'en',
+        'es'
+      ]
     }
   },
   methods: {
@@ -64,6 +75,12 @@ export default {
     },
     ...mapMutations(['addTracks', 'queryGlobalMutation', 'loadingMutation'])
   },
+  filters: {
+    capitalize(str){
+      str = str.charAt(0).toUpperCase() + str.substr(1, 2)
+      return str;
+    }
+  },
   mounted(){
     M.AutoInit();
     var elems = document.querySelectorAll('.sidenav');
@@ -76,9 +93,9 @@ export default {
 .nav {
   &-search {
     position: absolute;
-    left: 50%;
+    left: 40%;
     transform: translateX(-50%);
-    width: 40%;
+    width: 30%;
   }
 }
 </style>

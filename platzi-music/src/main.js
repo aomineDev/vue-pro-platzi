@@ -13,11 +13,13 @@ Vue.use(blur)
 
 import 'materialize-css/dist/css/materialize.css'
 import 'materialize-css/dist/js/materialize.js'
+import i18n from './i18n'
 
 Vue.config.productionTip = false
 
 new Vue({
   router,
   store,
+  i18n,
   render: h => h(App)
 }).$mount('#app')
